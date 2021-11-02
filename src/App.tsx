@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 
 import './App.css';
 import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
@@ -7,9 +7,75 @@ import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import { createMessage } from './graphql/mutations';
 import { listMessages } from './graphql/queries';
 import { onCreateMessage } from './graphql/subscriptions';
+import { HighlightSpanKind } from 'typescript';
 
-import awsExports from './aws-exports';
-Amplify.configure(awsExports);
+// import awsExports from './aws-exports';
+// Amplify.configure(awsExports);
+
+class App extends Component {
+  state = {username: '', password: '', email: '', authenticationCode: '', step: 0}
+  onChange = (e: any) => {
+    this.setState({ [e.target.name]: e.target.value })
+  }
+  signUp = async () => {
+    const {username, password, email } = this.state
+    try {
+      await Auth.signUp ({username, password, attributes: {email}})
+      console.log('successfully signed up!')
+      this.setState({step: 1})
+    } catch (error) {
+      console.log('error signing up: ', error)
+    }
+  }
+
+  confirmSignUp = async () => {
+    const {username, authenticationCode } = this.state
+    try {
+      await Auth.confirmSignUp(username, authenticationCode)
+      console.log('user successfully signed up!')
+    } catch (error) {
+      console.log('error confirming: ', error)
+    }
+  }
+
+  render() {
+    return (
+      <div className="App">
+        {
+          this.state.step === 0 && (
+            <div>
+              <input placeholder='username' onChange={this.onChange} name='username' style={this.styles.input} />
+              <input placeholder='password' onChange={this.onChange} name='password' type='password' style={this.styles.input} />
+              <input placeholder='email' onChange={this.onChange} name='email' style={this.styles.input} />
+              <input placeholder='phone' onChange={this.onChange} name='phone_number' style={this.styles.input} />
+              <button onClick={this.signUp}>Sign Up</button>
+
+            </div>
+          )
+        }
+        {
+          this.state.step === 1 && (
+            <div>
+              <input placeholder='username' onChange={this.onChange} name='username' style={this.styles.input} />
+              <input placeholder='authentication code' onChange={this.onChange} name='authenticationCode' type='password' style={this.styles.input} />
+             
+              <button onClick={this.confirmSignUp}>Confirm Sign Up</button>
+
+            </div>
+          )
+        }
+        
+      </div>
+    );
+  }
+
+   styles = {
+    input: {
+      height: 35, margin: 5
+    }
+  }
+
+}
 
 // export async function getServerSideProps({ req }: { req: any }) {
 //   const SSR = withSSRContext({ req });
@@ -35,6 +101,7 @@ Amplify.configure(awsExports);
 //   }
 // }
 
+/*
 function App() {
   const initStateMessage: any[] = [];
   const [stateMessages, setStateMessages] = useState(initStateMessage);
@@ -137,5 +204,5 @@ function App() {
     </div>
   );
 }
-
-export default withAuthenticator(App);
+*/
+export default App;
