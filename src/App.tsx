@@ -2,49 +2,32 @@ import React, { useEffect, useState } from 'react';
 
 import './App.css';
 import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
-import Message from './components/message';
+import Message from './Components/message';
+import AppContainer from './Containers/AppContainer';
 import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
-import { createMessage } from './graphql/mutations';
-import { listMessages } from './graphql/queries';
+import {
+  createMessage,
+  createProfile,
+  deleteProfile,
+} from './graphql/mutations';
+import { listMessages, listProfiles } from './graphql/queries';
 import { onCreateMessage } from './graphql/subscriptions';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
-
-// export async function getServerSideProps({ req }: { req: any }) {
-//   const SSR = withSSRContext({ req });
-//   try {
-//     const user = await SSR.Auth.currentAuthenticatedUser();
-
-//     const response = await SSR.API.graphql({
-//       query: listMessages,
-//       authMode: 'AMAZON_COGNITO_USER_POOLS',
-//     });
-
-//     return {
-//       props: {
-//         messages: response.data.listMessages.items,
-//       },
-//     };
-//   } catch (error) {
-//     return {
-//       props: {
-//         messages: [],
-//       },
-//     };
-//   }
-// }
 
 function App() {
   const initStateMessage: any[] = [];
   const [stateMessages, setStateMessages] = useState(initStateMessage);
   let initState: any = null;
   const [user, setUser] = useState(initState);
+  const [id, setId] = useState(initState);
+  const [profileIs, setProfileIs] = useState(initState);
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const amplifyUser = await Auth.currentAuthenticatedUser();
-        console.log(amplifyUser);
+        console.log('amplifyUser.id: ', amplifyUser.id);
         setUser(amplifyUser);
       } catch (err) {
         setUser(null);
@@ -78,7 +61,60 @@ function App() {
       }
     }
     getMessages();
+
+    const getProfiles = async () => {
+      console.log('username:', user?.username);
+      try {
+        const profiles = (await API.graphql({
+          query: listProfiles,
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
+        })) as any;
+        console.log('Profiles: ', profiles.data.listProfiles.items);
+
+        for (let profile of profiles.data.listProfiles.items) {
+          if (profile.userName === user.username) {
+            console.log('profile.id: ', profile.id);
+            setId(profile.id);
+            setProfileIs(true);
+            console.log('id in loop:', id);
+            return;
+          }
+        }
+        setProfileIs(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (user) {
+      getProfiles();
+    } else {
+      console.log('No User detected');
+    }
   }, [user]);
+
+  useEffect(() => {
+    const makeProfile = async () => {
+      console.log('trying to make profile');
+      try {
+        await API.graphql({
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
+          query: createProfile,
+          variables: {
+            input: { userName: user.username },
+          },
+        });
+        console.log('Created profile');
+      } catch (err) {
+        console.error('got an error: ', err);
+      }
+    };
+    if (profileIs === false) {
+      makeProfile();
+    } else {
+      console.log('id: ', id);
+    }
+  }, [profileIs]);
 
   const [messageText, setMessageText] = useState('');
 
@@ -106,14 +142,43 @@ function App() {
     }
   };
 
+  const deleteAllProfiles = async () => {
+    try {
+      const profiles = (await API.graphql({
+        query: listProfiles,
+        authMode: 'AMAZON_COGNITO_USER_POOLS',
+      })) as any;
+      // console.log('Profiles: ', profiles.data.listProfiles.items);
+
+      for (let profile of profiles.data.listProfiles.items) {
+        try {
+          await API.graphql({
+            authMode: 'AMAZON_COGNITO_USER_POOLS',
+            query: deleteProfile,
+            variables: {
+              input: { id: profile.id },
+            },
+          });
+          console.log('deleted profile');
+        } catch (err) {
+          console.log('delete error: ', err);
+        }
+      }
+      // setProfileIs(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     // <div style={styles.container}>
-    <div className="App">
+    <div className="App grid w-full h-full bg-white auto-rows-auto auto-cols-auto gap-x-1 gap-y-1">
       <AmplifySignOut />
-      <h1>This is our app</h1>
+      {/* <button onClick={deleteAllProfiles}>clear profiles</button> */}
+      {/* <h1>This is our app</h1>
       <h2>Amplify Messages</h2>
       {stateMessages
-        .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+        .sort((a, b) => a.createdAt.localeCompare(b.createdAt))
         .map((message) => (
           <Message
             message={message}
@@ -133,7 +198,8 @@ function App() {
           placeholder="Send a message"
         />
         <button>Send</button>
-      </form>
+      </form> */}
+      <AppContainer />
     </div>
   );
 }

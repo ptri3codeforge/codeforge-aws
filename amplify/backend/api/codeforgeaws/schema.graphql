@@ -3,3 +3,30 @@ type Message @model @auth(rules: [{ allow: private }]) {
   owner: String!
   message: String
 }
+
+type Profile @model {
+  id: ID!
+  userName: String!
+  userBio: String
+  firstName: String
+  lastName: String
+  city: String
+  skillLevel: String
+  role: String
+  openTo: String
+  skill1: String
+  skill2: String
+  skill3: String
+  about: String
+  highlightLink1: String
+  highlightLink2: String
+  highlightTitle1: String
+  highlightTitle2: String
+  highlightLink3: String
+  highlightTitle3: String
+  highlightLink4: String
+  highlightTitle4: String
+  ghLink: String
+  liLink: String
+  twLink: String
+}
