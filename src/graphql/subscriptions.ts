@@ -35,3 +35,99 @@ export const onDeleteMessage = /* GraphQL */ `
     }
   }
 `;
+export const onCreateProfile = /* GraphQL */ `
+  subscription OnCreateProfile {
+    onCreateProfile {
+      id
+      userName
+      userBio
+      firstName
+      lastName
+      city
+      skillLevel
+      role
+      openTo
+      skill1
+      skill2
+      skill3
+      about
+      highlightLink1
+      highlightLink2
+      highlightTitle1
+      highlightTitle2
+      highlightLink3
+      highlightTitle3
+      highlightLink4
+      highlightTitle4
+      ghLink
+      liLink
+      twLink
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateProfile = /* GraphQL */ `
+  subscription OnUpdateProfile {
+    onUpdateProfile {
+      id
+      userName
+      userBio
+      firstName
+      lastName
+      city
+      skillLevel
+      role
+      openTo
+      skill1
+      skill2
+      skill3
+      about
+      highlightLink1
+      highlightLink2
+      highlightTitle1
+      highlightTitle2
+      highlightLink3
+      highlightTitle3
+      highlightLink4
+      highlightTitle4
+      ghLink
+      liLink
+      twLink
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteProfile = /* GraphQL */ `
+  subscription OnDeleteProfile {
+    onDeleteProfile {
+      id
+      userName
+      userBio
+      firstName
+      lastName
+      city
+      skillLevel
+      role
+      openTo
+      skill1
+      skill2
+      skill3
+      about
+      highlightLink1
+      highlightLink2
+      highlightTitle1
+      highlightTitle2
+      highlightLink3
+      highlightTitle3
+      highlightLink4
+      highlightTitle4
+      ghLink
+      liLink
+      twLink
+      createdAt
+      updatedAt
+    }
+  }
+`;
