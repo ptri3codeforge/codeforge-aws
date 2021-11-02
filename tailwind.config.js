@@ -36,6 +36,12 @@ module.exports = {
         default: "#000000",
         slate: "#303134",
       },
+      resolved: {
+        default: '#37ce00'
+      },
+      open: {
+        default: '#FF0000'
+      }
     },
 
     extend: {
