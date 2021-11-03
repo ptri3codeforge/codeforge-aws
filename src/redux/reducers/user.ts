@@ -114,6 +114,8 @@ export const userSlice = createSlice({
     updateUser: (state, action: any) => {
       // action.payload;
       state = updateProf(action.payload) as any;
+
+      console.log('from /reducers/user: ', state);
     },
   },
 });

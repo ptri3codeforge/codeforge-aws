@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUser } from '../redux/reducers/user';
+import { initUser } from '../redux/reducers/user';
 import { BiMap, BiMessageSquareDots, BiWrench, BiEdit } from 'react-icons/bi';
+import { API } from 'aws-amplify';
+import { updateProfile } from '../graphql/mutations';
 
 const ProfilePage = () => {
   //@ts-ignore: Unreachable code error
@@ -33,6 +35,28 @@ const ProfilePage = () => {
   } = user;
   const dispatch = useDispatch();
 
+  const updateProf = async (value: any) => {
+    let prof: any;
+    try {
+      prof = await API.graphql({
+        authMode: 'AMAZON_COGNITO_USER_POOLS',
+        query: updateProfile,
+        variables: {
+          input: value,
+        },
+      });
+      console.log('updateProfile return: ', prof.data.updateProfile);
+
+      dispatch(initUser(prof.data.updateProfile));
+    } catch (error) {
+      console.log('error while updating profile: ', error);
+    }
+  };
+
+  useEffect(() => {
+    console.log('user updated');
+  }, [user]);
+
   const [bio, setbio] = useState('');
   const [edit, setEdit] = useState(false);
   const [editedUser, setEditedUser] = useState(user);
@@ -44,7 +68,7 @@ const ProfilePage = () => {
   const [editHighlight4, setHighlight4] = useState(false);
 
   console.log(`Edit is ${edit}`);
-  console.log(user);
+  console.log('User State: ', user);
 
   const myRef = React.useRef(null);
 
@@ -603,7 +627,7 @@ const ProfilePage = () => {
                     className="text-white-default  bg-blue-light shadow-2xl rounded-lg border-darkBlue-default border-4 mb-4"
                     onClick={() => {
                       console.log('editedUser: ', editedUser);
-                      dispatch(updateUser(editedUser));
+                      updateProf(editedUser);
                       setEdit(false);
                     }}
                   >
