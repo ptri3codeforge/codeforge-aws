@@ -30,17 +30,17 @@ const BulletinBoard = () => {
     }
     getPosts();
 
-    //  const subscription = (
-    //    API.graphql(graphqlOperation(onCreateBulletinPost)) as any
-    //  ).subscribe({
-    //    next: ({ provider, value }: { provider: any; value: any }) => {
-    //      console.log('onCreateBulletinPost: ', value.data.onCreateBulletinPost);
-    //      setBulletinData((BulletinData) => [
-    //        ...BulletinData,
-    //        value.data.onCreateBulletinPost,
-    //      ]);
-    //    },
-    //  });
+    const subscription = (
+      API.graphql(graphqlOperation(onCreateBulletinPost)) as any
+    ).subscribe({
+      next: ({ provider, value }: { provider: any; value: any }) => {
+        console.log('onCreateBulletinPost: ', value.data.onCreateBulletinPost);
+        setBulletinData((BulletinData) => [
+          ...BulletinData,
+          value.data.onCreateBulletinPost,
+        ]);
+      },
+    });
   }, []);
   //@ts-ignore: Unreachable code error
   //   const BulletinData = useSelector((state) => state.bulletinPosts);
