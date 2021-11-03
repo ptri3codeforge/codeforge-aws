@@ -1,6 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
+import { updateProfile } from '../../graphql/mutations';
+import { getProfile } from '../../graphql/queries';
+import { onCreateMessage } from '../../graphql/subscriptions';
 export interface UserState {
+  id: string;
   userName: string;
   userBio: string;
   firstName: string;
@@ -26,33 +30,8 @@ export interface UserState {
   twLink: string;
 }
 
-type User = {
-  userName: string;
-  userBio: string;
-  firstName: string;
-  lastName: string;
-  city: string;
-  skillLevel: string;
-  role: string;
-  openTo: string;
-  skill1: string;
-  skill2: string;
-  skill3: string;
-  about: string;
-  highlightLink1: string;
-  highlightTitle1: string;
-  highlightLink2: string;
-  highlightTitle2: string;
-  highlightLink3: string;
-  highlightTitle3: string;
-  highlightLink4: string;
-  highlightTitle4: string;
-  ghLink: string;
-  liLink: string;
-  twLink: string;
-};
-
 const initialState: UserState = {
+  id: '',
   userName: 'Test',
   userBio: 'This is the test users Bio',
   firstName: 'Charlie',
@@ -80,16 +59,34 @@ const initialState: UserState = {
   twLink: 'https://twitter.com/maxxatlast',
 };
 
+const updateProf = async (value: any) => {
+  let prof: any;
+  try {
+    prof = await API.graphql({
+      authMode: 'AMAZON_COGNITO_USER_POOLS',
+      query: updateProfile,
+      variables: {
+        input: value,
+      },
+    });
+    console.log('updateProfile return: ', prof.data.updateProfile);
+    return prof.data.updateProfile;
+  } catch (error) {
+    console.log('error while updating profile: ', error);
+  }
+};
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
     //make sure whats passed in follows the UserState interface
     // initUser: (state, action: PayloadAction<UserState>) => {
-    initUser: (state, action: PayloadAction<User>) => {
+    initUser: (state, action: any) => {
       // Use this once user is logged in and the backend has sent the user details
 
-      // state = action.payload;  // This might work instead of below.
+      // state = action.payload; // This might work instead of below.
+      state.id = action.payload.id;
       state.userBio = action.payload.userBio;
       state.userName = action.payload.userName;
       state.firstName = action.payload.firstName;
@@ -114,13 +111,14 @@ export const userSlice = createSlice({
       state.liLink = action.payload.liLink;
       state.twLink = action.payload.twLink;
     },
-    updateBio: (state, action: PayloadAction<string>) => {
-      state.userBio = action.payload;
+    updateUser: (state, action: any) => {
+      // action.payload;
+      state = updateProf(action.payload) as any;
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { updateBio } = userSlice.actions;
+export const { updateUser, initUser } = userSlice.actions;
 
 export default userSlice.reducer;
