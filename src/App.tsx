@@ -107,8 +107,6 @@ function App() {
           variables: {
             input: {
               userName: user.username,
-              firstName: 'Randy',
-              lastName: 'Diebold',
             },
           },
         });
