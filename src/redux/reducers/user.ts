@@ -82,38 +82,38 @@ export const userSlice = createSlice({
   reducers: {
     //make sure whats passed in follows the UserState interface
     // initUser: (state, action: PayloadAction<UserState>) => {
-    initUser: (state, action: any) => {
+    initUser: (state, { payload }: PayloadAction<UserState>) => {
       // Use this once user is logged in and the backend has sent the user details
 
-      // state = action.payload; // This might work instead of below.
-      state.id = action.payload.id;
-      state.userBio = action.payload.userBio;
-      state.userName = action.payload.userName;
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.city = action.payload.city;
-      state.skillLevel = action.payload.skillLevel;
-      state.role = action.payload.role;
-      state.openTo = action.payload.openTo;
-      state.skill1 = action.payload.skill1;
-      state.skill2 = action.payload.skill2;
-      state.skill3 = action.payload.skill3;
-      state.about = action.payload.about;
-      state.highlightLink1 = action.payload.highlightLink1;
-      state.highlightTitle1 = action.payload.highlightTitle1;
-      state.highlightLink2 = action.payload.highlightLink2;
-      state.highlightTitle2 = action.payload.highlightTitle2;
-      state.highlightLink3 = action.payload.highlightLink3;
-      state.highlightTitle3 = action.payload.highlightTitle3;
-      state.highlightLink4 = action.payload.highlightLink4;
-      state.highlightTitle4 = action.payload.highlightTitle4;
-      state.ghLink = action.payload.ghLink;
-      state.liLink = action.payload.liLink;
-      state.twLink = action.payload.twLink;
+      // state = payload; // This might work instead of below.
+      state.id = payload.id;
+      state.userBio = payload.userBio;
+      state.userName = payload.userName;
+      state.firstName = payload.firstName;
+      state.lastName = payload.lastName;
+      state.city = payload.city;
+      state.skillLevel = payload.skillLevel;
+      state.role = payload.role;
+      state.openTo = payload.openTo;
+      state.skill1 = payload.skill1;
+      state.skill2 = payload.skill2;
+      state.skill3 = payload.skill3;
+      state.about = payload.about;
+      state.highlightLink1 = payload.highlightLink1;
+      state.highlightTitle1 = payload.highlightTitle1;
+      state.highlightLink2 = payload.highlightLink2;
+      state.highlightTitle2 = payload.highlightTitle2;
+      state.highlightLink3 = payload.highlightLink3;
+      state.highlightTitle3 = payload.highlightTitle3;
+      state.highlightLink4 = payload.highlightLink4;
+      state.highlightTitle4 = payload.highlightTitle4;
+      state.ghLink = payload.ghLink;
+      state.liLink = payload.liLink;
+      state.twLink = payload.twLink;
     },
-    updateUser: (state, action: any) => {
-      // action.payload;
-      state = updateProf(action.payload) as any;
+    updateUser: (state, { payload }: PayloadAction<UserState>) => {
+      // payload;
+      state = updateProf(payload) as any;
 
       console.log('from /reducers/user: ', state);
     },

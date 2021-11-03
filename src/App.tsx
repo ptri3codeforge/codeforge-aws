@@ -215,7 +215,7 @@ function App() {
     // <div style={styles.container}>
     <div className="App grid bg-blue-default w-full h-full bg-white auto-rows-auto auto-cols-auto gap-x-1 gap-y-1">
       <AmplifySignOut />
-      <button
+      {/* <button
         onClick={() => {
           updateProf({
             id: id,
@@ -225,7 +225,7 @@ function App() {
         }}
       >
         updateProf
-      </button>
+      </button> */}
       {/* <button onClick={deleteAllProfiles}>clear profiles</button> */}
       {/* <h1>This is our app</h1>
       <h2>Amplify Messages</h2>
