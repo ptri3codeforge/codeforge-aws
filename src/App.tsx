@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-
+import { useDispatch } from 'react-redux';
+import { initUser } from './redux/reducers/user';
 import './App.css';
 import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
 import Message from './Components/message';
@@ -9,20 +10,23 @@ import {
   createMessage,
   createProfile,
   deleteProfile,
+  updateProfile,
 } from './graphql/mutations';
-import { listMessages, listProfiles } from './graphql/queries';
+import { listMessages, listProfiles, getProfile } from './graphql/queries';
 import { onCreateMessage } from './graphql/subscriptions';
 
 import awsExports from './aws-exports';
 Amplify.configure(awsExports);
 
 function App() {
+  const dispatch = useDispatch();
   const initStateMessage: any[] = [];
   const [stateMessages, setStateMessages] = useState(initStateMessage);
   let initState: any = null;
   const [user, setUser] = useState(initState);
   const [id, setId] = useState(initState);
   const [profileIs, setProfileIs] = useState(initState);
+
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -101,7 +105,9 @@ function App() {
           authMode: 'AMAZON_COGNITO_USER_POOLS',
           query: createProfile,
           variables: {
-            input: { userName: user.username },
+            input: {
+              userName: user.username,
+            },
           },
         });
         console.log('Created profile');
@@ -109,10 +115,28 @@ function App() {
         console.error('got an error: ', err);
       }
     };
+
+    const getProf = async () => {
+      try {
+        console.log('Id from inside getProf: ', id);
+        const userProf = (await API.graphql({
+          // authMode: 'AMAZON_COGNITO_USER_POOLS',
+          query: getProfile,
+          variables: {
+            id: id,
+          },
+        })) as any;
+        console.log('user profile: ', userProf);
+        dispatch(initUser(userProf.data.getProfile));
+      } catch (err) {
+        console.log('error getting profile: ', err);
+      }
+    };
+
     if (profileIs === false) {
       makeProfile();
     } else {
-      console.log('id: ', id);
+      getProf();
     }
   }, [profileIs]);
 
@@ -170,10 +194,38 @@ function App() {
     }
   };
 
+  const updateProf = async (value: any) => {
+    let prof: any;
+    try {
+      prof = await API.graphql({
+        authMode: 'AMAZON_COGNITO_USER_POOLS',
+        query: updateProfile,
+        variables: {
+          input: value,
+        },
+      });
+      console.log('updateProfile return: ', prof.data.updateProfile);
+      return prof.data;
+    } catch (error) {
+      console.log('error while updating profile: ', error);
+    }
+  };
+
   return (
     // <div style={styles.container}>
     <div className="App grid bg-blue-default w-full h-full bg-white auto-rows-auto auto-cols-auto gap-x-1 gap-y-1">
       <AmplifySignOut />
+      {/* <button
+        onClick={() => {
+          updateProf({
+            id: id,
+            lastName: 'Diebold',
+            about: 'This is just test',
+          });
+        }}
+      >
+        updateProf
+      </button> */}
       {/* <button onClick={deleteAllProfiles}>clear profiles</button> */}
       {/* <h1>This is our app</h1>
       <h2>Amplify Messages</h2>

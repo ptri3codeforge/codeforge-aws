@@ -102,3 +102,40 @@ export const listProfiles = /* GraphQL */ `
     }
   }
 `;
+export const getBulletinPost = /* GraphQL */ `
+  query GetBulletinPost($id: ID!) {
+    getBulletinPost(id: $id) {
+      id
+      author
+      subject
+      description
+      resolved
+      hashtags
+      posttime
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listBulletinPosts = /* GraphQL */ `
+  query ListBulletinPosts(
+    $filter: ModelBulletinPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listBulletinPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        author
+        subject
+        description
+        resolved
+        hashtags
+        posttime
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;

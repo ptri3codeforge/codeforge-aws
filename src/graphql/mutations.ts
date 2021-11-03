@@ -149,3 +149,57 @@ export const deleteProfile = /* GraphQL */ `
     }
   }
 `;
+export const createBulletinPost = /* GraphQL */ `
+  mutation CreateBulletinPost(
+    $input: CreateBulletinPostInput!
+    $condition: ModelBulletinPostConditionInput
+  ) {
+    createBulletinPost(input: $input, condition: $condition) {
+      id
+      author
+      subject
+      description
+      resolved
+      hashtags
+      posttime
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const updateBulletinPost = /* GraphQL */ `
+  mutation UpdateBulletinPost(
+    $input: UpdateBulletinPostInput!
+    $condition: ModelBulletinPostConditionInput
+  ) {
+    updateBulletinPost(input: $input, condition: $condition) {
+      id
+      author
+      subject
+      description
+      resolved
+      hashtags
+      posttime
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const deleteBulletinPost = /* GraphQL */ `
+  mutation DeleteBulletinPost(
+    $input: DeleteBulletinPostInput!
+    $condition: ModelBulletinPostConditionInput
+  ) {
+    deleteBulletinPost(input: $input, condition: $condition) {
+      id
+      author
+      subject
+      description
+      resolved
+      hashtags
+      posttime
+      createdAt
+      updatedAt
+    }
+  }
+`;

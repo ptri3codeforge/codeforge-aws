@@ -192,6 +192,62 @@ export type DeleteProfileInput = {
   id: string,
 };
 
+export type CreateBulletinPostInput = {
+  id?: string | null,
+  author?: string | null,
+  subject?: string | null,
+  description?: string | null,
+  resolved?: boolean | null,
+  hashtags?: Array< string | null > | null,
+  posttime?: string | null,
+};
+
+export type ModelBulletinPostConditionInput = {
+  author?: ModelStringInput | null,
+  subject?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  resolved?: ModelBooleanInput | null,
+  hashtags?: ModelStringInput | null,
+  posttime?: ModelStringInput | null,
+  and?: Array< ModelBulletinPostConditionInput | null > | null,
+  or?: Array< ModelBulletinPostConditionInput | null > | null,
+  not?: ModelBulletinPostConditionInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type BulletinPost = {
+  __typename: "BulletinPost",
+  id?: string,
+  author?: string | null,
+  subject?: string | null,
+  description?: string | null,
+  resolved?: boolean | null,
+  hashtags?: Array< string | null > | null,
+  posttime?: string | null,
+  createdAt?: string,
+  updatedAt?: string,
+};
+
+export type UpdateBulletinPostInput = {
+  id: string,
+  author?: string | null,
+  subject?: string | null,
+  description?: string | null,
+  resolved?: boolean | null,
+  hashtags?: Array< string | null > | null,
+  posttime?: string | null,
+};
+
+export type DeleteBulletinPostInput = {
+  id: string,
+};
+
 export type ModelMessageFilterInput = {
   id?: ModelIDInput | null,
   owner?: ModelStringInput | null,
@@ -256,6 +312,25 @@ export type ModelProfileFilterInput = {
 export type ModelProfileConnection = {
   __typename: "ModelProfileConnection",
   items?:  Array<Profile | null > | null,
+  nextToken?: string | null,
+};
+
+export type ModelBulletinPostFilterInput = {
+  id?: ModelIDInput | null,
+  author?: ModelStringInput | null,
+  subject?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  resolved?: ModelBooleanInput | null,
+  hashtags?: ModelStringInput | null,
+  posttime?: ModelStringInput | null,
+  and?: Array< ModelBulletinPostFilterInput | null > | null,
+  or?: Array< ModelBulletinPostFilterInput | null > | null,
+  not?: ModelBulletinPostFilterInput | null,
+};
+
+export type ModelBulletinPostConnection = {
+  __typename: "ModelBulletinPostConnection",
+  items?:  Array<BulletinPost | null > | null,
   nextToken?: string | null,
 };
 
@@ -418,6 +493,66 @@ export type DeleteProfileMutation = {
   } | null,
 };
 
+export type CreateBulletinPostMutationVariables = {
+  input?: CreateBulletinPostInput,
+  condition?: ModelBulletinPostConditionInput | null,
+};
+
+export type CreateBulletinPostMutation = {
+  createBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBulletinPostMutationVariables = {
+  input?: UpdateBulletinPostInput,
+  condition?: ModelBulletinPostConditionInput | null,
+};
+
+export type UpdateBulletinPostMutation = {
+  updateBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBulletinPostMutationVariables = {
+  input?: DeleteBulletinPostInput,
+  condition?: ModelBulletinPostConditionInput | null,
+};
+
+export type DeleteBulletinPostMutation = {
+  deleteBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetMessageQueryVariables = {
   id?: string,
 };
@@ -525,6 +660,50 @@ export type ListProfilesQuery = {
       ghLink?: string | null,
       liLink?: string | null,
       twLink?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBulletinPostQueryVariables = {
+  id?: string,
+};
+
+export type GetBulletinPostQuery = {
+  getBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListBulletinPostsQueryVariables = {
+  filter?: ModelBulletinPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBulletinPostsQuery = {
+  listBulletinPosts?:  {
+    __typename: "ModelBulletinPostConnection",
+    items?:  Array< {
+      __typename: "BulletinPost",
+      id: string,
+      author?: string | null,
+      subject?: string | null,
+      description?: string | null,
+      resolved?: boolean | null,
+      hashtags?: Array< string | null > | null,
+      posttime?: string | null,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -656,6 +835,51 @@ export type OnDeleteProfileSubscription = {
     ghLink?: string | null,
     liLink?: string | null,
     twLink?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateBulletinPostSubscription = {
+  onCreateBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateBulletinPostSubscription = {
+  onUpdateBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteBulletinPostSubscription = {
+  onDeleteBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
