@@ -2,9 +2,11 @@ import React, {useState} from 'react'
 import BoardContainer from './BoardContainer'
 
 import DashboardContainer from './DashboardContainer'
+import PostContainer from './PostContainer';
 import SidebarContainer from './SidebarContainer'
 
 export const viewContext = React.createContext<any>('default');
+
 
 
 const AppContainer = () => {
@@ -15,6 +17,7 @@ const AppContainer = () => {
             <viewContext.Provider value={{view, setView}}>
                 <SidebarContainer />
                 <DashboardContainer />
+                
             </viewContext.Provider>
         </div>
     )
