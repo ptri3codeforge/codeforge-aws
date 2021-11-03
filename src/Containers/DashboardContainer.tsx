@@ -7,6 +7,7 @@ import BoardContainer from './BoardContainer';
 import JobContainer from './JobContainer'
 import LoginContainer from './LoginContainer';
 import PostContainer from './PostContainer';
+import MessengerContainer from './MessengerContainer';
 
 const DashboardContainer = () => {
 
@@ -32,6 +33,7 @@ const DashboardContainer = () => {
         </div> : ''}
       {view === 'jobs' && <JobContainer />}
       {view === 'login' && <LoginContainer />}
+      {view === 'messages' && <MessengerContainer />}
 
     </div>
   );
