@@ -3,15 +3,47 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { addPost, Bulletin, Post } from '../redux/reducers/bulletinPosts';
 import { Reducer } from '@reduxjs/toolkit';
+import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
+import { onCreateBulletinPost } from '../graphql/subscriptions';
+import { listBulletinPosts } from '../graphql/queries';
+import { deleteBulletinPost } from '../graphql/mutations';
 // import { BulletinData } from '../util/BulletinData'
 
 //@ts-ignore
 export var tempPostInfo;
 
 const BulletinBoard = () => {
+  const initBulletinData: any[] = [];
+  const [BulletinData, setBulletinData] = useState(initBulletinData);
+  useEffect(() => {
+    async function getPosts() {
+      try {
+        const posts = (await API.graphql({
+          query: listBulletinPosts,
+          authMode: 'AMAZON_COGNITO_USER_POOLS',
+        })) as any;
+        console.log('bulletin posts:', posts.data.listBulletinPosts.items);
+        setBulletinData(posts.data.listBulletinPosts.items);
+      } catch (err) {
+        console.log('Error getting bulletin posts: ', err);
+      }
+    }
+    getPosts();
+
+    //  const subscription = (
+    //    API.graphql(graphqlOperation(onCreateBulletinPost)) as any
+    //  ).subscribe({
+    //    next: ({ provider, value }: { provider: any; value: any }) => {
+    //      console.log('onCreateBulletinPost: ', value.data.onCreateBulletinPost);
+    //      setBulletinData((BulletinData) => [
+    //        ...BulletinData,
+    //        value.data.onCreateBulletinPost,
+    //      ]);
+    //    },
+    //  });
+  }, []);
   //@ts-ignore: Unreachable code error
-  const BulletinData = useSelector((state) => state.bulletinPosts);
-  console.log('BulletinData: ', BulletinData);
+  //   const BulletinData = useSelector((state) => state.bulletinPosts);
 
   const [clicked, isClicked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -29,10 +61,41 @@ const BulletinBoard = () => {
     console.log('tempPostInfo is: ', tempPostInfo.subject);
   }, [postContext]);
 
+  const deleteAllPosts = async () => {
+    try {
+      const posts = (await API.graphql({
+        query: listBulletinPosts,
+        authMode: 'AMAZON_COGNITO_USER_POOLS',
+      })) as any;
+      // console.log('Profiles: ', profiles.data.listProfiles.items);
+
+      for (let post of posts.data.listBulletinPosts.items) {
+        try {
+          await API.graphql({
+            authMode: 'AMAZON_COGNITO_USER_POOLS',
+            query: deleteBulletinPost,
+            variables: {
+              input: { id: post.id },
+            },
+          });
+          console.log('deleted post');
+        } catch (err) {
+          console.log('delete error: ', err);
+        }
+      }
+      // setProfileIs(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full h-4/5 bg-yellow-default rounded-lg m-8 ">
+      {/* <button onClick={deleteAllPosts}>deleteAllPosts</button> */}
       <div className="rounded-lg bg-yellow-default flex flex-wrap content-evenly ">
-        {BulletinData.posts.map((el: Post, i: number) => (
+        {BulletinData.sort((a, b) =>
+          a.createdAt.localeCompare(b.createdAt)
+        ).map((el: Post, i: number) => (
           <div
             className={`flex ${
               clicked

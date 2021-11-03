@@ -3,6 +3,8 @@ import InputTag from './InputTag';
 import { BiSend } from 'react-icons/bi';
 import { useSelector, useDispatch } from 'react-redux';
 import { addPost, Bulletin, Post } from '../redux/reducers/bulletinPosts';
+import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
+import { createBulletinPost } from '../graphql/mutations';
 
 const AddPost = () => {
   //@ts-ignore: Unreachable code error
@@ -13,13 +15,12 @@ const AddPost = () => {
     description: '',
     resolved: false,
     hashtags: ['Example Hashtag'],
-    posttime: new Date(),
   };
   const [post, setPost] = useState(initPostState);
 
   //@ts-ignore
   const onAddTag = (tag) => {
-    setPost({ ...post, hashtags: [...post.hashtags, tag] });
+    setPost({ ...post, hashtags: [...post.hashtags, ...tag] });
   };
 
   //@ts-ignore
@@ -73,8 +74,20 @@ const AddPost = () => {
 
       <button
         className="text-yellow-default w-1/3 text-center bg-blue-light shadow-2xl rounded-lg border-yellow-default border-4 mb-4"
-        onClick={() => {
+        onClick={async () => {
           console.log(post);
+          try {
+            await API.graphql({
+              authMode: 'AMAZON_COGNITO_USER_POOLS',
+              query: createBulletinPost,
+              variables: {
+                input: post,
+              },
+            });
+            setPost(initPostState);
+          } catch (err) {
+            console.log('Error adding bulliten post: ', err);
+          }
         }}
       >
         <div className="flex flex-row ">
