@@ -1,5 +1,8 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import { BulletinData } from '../util/BulletinData'
+
+//@ts-ignore
+export var tempPostInfo;
 
 const BulletinBoard = () => {
     const [clicked, isClicked] = useState(false);
@@ -10,6 +13,18 @@ const BulletinBoard = () => {
         console.log('clicked')
     }
 
+   
+    const [postContext, setPostContext] = useState([[]])
+
+   
+
+//@ts-ignore: Unreachable code error
+  useEffect(() => {
+    
+    tempPostInfo = postContext
+    console.log('tempPostInfo is: ', tempPostInfo.subject)
+  }, [postContext])
+
     return (
 
       <div className="w-full h-4/5 bg-yellow-default rounded-lg m-8 ">
@@ -19,6 +34,8 @@ const BulletinBoard = () => {
          <div className={`flex ${clicked ? `bg-yellow-default text-white-default` : `bg-white-default`}  border-8 m-2 border-white-default rounded-lg  cursor-pointer shadow-lg w-full hover:bg-white-default`} 
          key={i}
          // onClick={() => isClicked(true)}
+         //@ts-ignore
+         onClick={()=> setPostContext(el)} 
          >
          <div className="flex  rounded-3xl hover:bg-blue-light bg-white-cream w-full px-20 py-2  hover:text-white-default">
             <img className="w-12 h-12 rounded-full object-cover mt-1 mr-4 shadow" src="https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60" alt="avatar" />
@@ -61,3 +78,5 @@ const BulletinBoard = () => {
 }
 
 export default BulletinBoard
+
+
