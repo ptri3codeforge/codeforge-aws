@@ -108,7 +108,7 @@ const SideBarComponents = () => {
               <div className='opacity-0 w-1'>
               <AmplifySignOut />
               </div>
-          <span className="text-lg text-darkBlue-default font-semibold">Logout</span>
+          <span className="text-lg text-darkBlue-default">Logout</span>
           <div className='opacity-0 w-1'>
               <AmplifySignOut />
               </div>

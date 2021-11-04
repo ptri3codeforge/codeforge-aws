@@ -3,7 +3,7 @@ import HomeComponent from '../Components/HomeComponent'
 
 function HomeContainer() {
     return (
-        <div className="w-full h-full bg-darkBlue-default">
+        <div className="w-full h-full bg-white-default">
                 <HomeComponent />
         </div>
     )
