@@ -3,16 +3,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AnyAction } from 'redux';
 import { addPost, Bulletin, Post } from '../redux/reducers/bulletinPosts';
 import { Reducer } from '@reduxjs/toolkit';
-import Amplify, { API, graphqlOperation, Auth } from 'aws-amplify';
+import { API, graphqlOperation, Auth } from 'aws-amplify';
 import { onCreateBulletinPost } from '../graphql/subscriptions';
 import { listBulletinPosts } from '../graphql/queries';
 import { deleteBulletinPost } from '../graphql/mutations';
+import { updatePost } from '../redux/reducers/selectedpost';
 // import { BulletinData } from '../util/BulletinData'
 
 //@ts-ignore
 export var tempPostInfo;
 
 const BulletinBoard = () => {
+  const dispatch = useDispatch();
   const initBulletinData: any[] = [];
   const [BulletinData, setBulletinData] = useState(initBulletinData);
   useEffect(() => {
@@ -58,7 +60,8 @@ const BulletinBoard = () => {
   //@ts-ignore: Unreachable code error
   useEffect(() => {
     tempPostInfo = postContext;
-    console.log('tempPostInfo is: ', tempPostInfo.subject);
+    console.log('tempPostInfo is: ', tempPostInfo);
+    dispatch(updatePost(postContext));
   }, [postContext]);
 
   const deleteAllPosts = async () => {
@@ -102,7 +105,7 @@ const BulletinBoard = () => {
                 ? `bg-yellow-default text-white-default`
                 : `bg-white-default`
             }  border-8 m-2 border-white-default rounded-lg  cursor-pointer shadow-lg w-full hover:bg-white-default`}
-            key={i}
+            key={el.id}
             // onClick={() => isClicked(true)}
             //@ts-ignore
             onClick={() => setPostContext(el)}
