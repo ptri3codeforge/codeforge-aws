@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-export type Post = {
+export interface Post {
   id: string;
   author: string;
   subject: string;
@@ -8,7 +8,7 @@ export type Post = {
   resolved: boolean;
   hashtags: string[];
   posttime: Date;
-};
+}
 
 export interface Bulletin {
   posts: Post[];
