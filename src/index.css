@@ -10,6 +10,8 @@
 
 :root {
   --navy: #242a38;
+  --amplify-primary-color: #4653B7;
+  --amplify-primary-tint: #E9D7A8;
 }
 
  /* can be configured in tailwind.config.js */
@@ -80,7 +82,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
+.hydrated{
+  background-color: #242A38;
+}
+
