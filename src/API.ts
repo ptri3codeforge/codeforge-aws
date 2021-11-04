@@ -75,6 +75,179 @@ export type DeleteMessageInput = {
   id: string,
 };
 
+export type CreateProfileInput = {
+  id?: string | null,
+  userName: string,
+  userBio?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
+  city?: string | null,
+  skillLevel?: string | null,
+  role?: string | null,
+  openTo?: string | null,
+  skill1?: string | null,
+  skill2?: string | null,
+  skill3?: string | null,
+  about?: string | null,
+  highlightLink1?: string | null,
+  highlightLink2?: string | null,
+  highlightTitle1?: string | null,
+  highlightTitle2?: string | null,
+  highlightLink3?: string | null,
+  highlightTitle3?: string | null,
+  highlightLink4?: string | null,
+  highlightTitle4?: string | null,
+  ghLink?: string | null,
+  liLink?: string | null,
+  twLink?: string | null,
+};
+
+export type ModelProfileConditionInput = {
+  userName?: ModelStringInput | null,
+  userBio?: ModelStringInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  city?: ModelStringInput | null,
+  skillLevel?: ModelStringInput | null,
+  role?: ModelStringInput | null,
+  openTo?: ModelStringInput | null,
+  skill1?: ModelStringInput | null,
+  skill2?: ModelStringInput | null,
+  skill3?: ModelStringInput | null,
+  about?: ModelStringInput | null,
+  highlightLink1?: ModelStringInput | null,
+  highlightLink2?: ModelStringInput | null,
+  highlightTitle1?: ModelStringInput | null,
+  highlightTitle2?: ModelStringInput | null,
+  highlightLink3?: ModelStringInput | null,
+  highlightTitle3?: ModelStringInput | null,
+  highlightLink4?: ModelStringInput | null,
+  highlightTitle4?: ModelStringInput | null,
+  ghLink?: ModelStringInput | null,
+  liLink?: ModelStringInput | null,
+  twLink?: ModelStringInput | null,
+  and?: Array< ModelProfileConditionInput | null > | null,
+  or?: Array< ModelProfileConditionInput | null > | null,
+  not?: ModelProfileConditionInput | null,
+};
+
+export type Profile = {
+  __typename: "Profile",
+  id?: string,
+  userName?: string,
+  userBio?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
+  city?: string | null,
+  skillLevel?: string | null,
+  role?: string | null,
+  openTo?: string | null,
+  skill1?: string | null,
+  skill2?: string | null,
+  skill3?: string | null,
+  about?: string | null,
+  highlightLink1?: string | null,
+  highlightLink2?: string | null,
+  highlightTitle1?: string | null,
+  highlightTitle2?: string | null,
+  highlightLink3?: string | null,
+  highlightTitle3?: string | null,
+  highlightLink4?: string | null,
+  highlightTitle4?: string | null,
+  ghLink?: string | null,
+  liLink?: string | null,
+  twLink?: string | null,
+  createdAt?: string,
+  updatedAt?: string,
+};
+
+export type UpdateProfileInput = {
+  id: string,
+  userName?: string | null,
+  userBio?: string | null,
+  firstName?: string | null,
+  lastName?: string | null,
+  city?: string | null,
+  skillLevel?: string | null,
+  role?: string | null,
+  openTo?: string | null,
+  skill1?: string | null,
+  skill2?: string | null,
+  skill3?: string | null,
+  about?: string | null,
+  highlightLink1?: string | null,
+  highlightLink2?: string | null,
+  highlightTitle1?: string | null,
+  highlightTitle2?: string | null,
+  highlightLink3?: string | null,
+  highlightTitle3?: string | null,
+  highlightLink4?: string | null,
+  highlightTitle4?: string | null,
+  ghLink?: string | null,
+  liLink?: string | null,
+  twLink?: string | null,
+};
+
+export type DeleteProfileInput = {
+  id: string,
+};
+
+export type CreateBulletinPostInput = {
+  id?: string | null,
+  author?: string | null,
+  subject?: string | null,
+  description?: string | null,
+  resolved?: boolean | null,
+  hashtags?: Array< string | null > | null,
+  posttime?: string | null,
+};
+
+export type ModelBulletinPostConditionInput = {
+  author?: ModelStringInput | null,
+  subject?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  resolved?: ModelBooleanInput | null,
+  hashtags?: ModelStringInput | null,
+  posttime?: ModelStringInput | null,
+  and?: Array< ModelBulletinPostConditionInput | null > | null,
+  or?: Array< ModelBulletinPostConditionInput | null > | null,
+  not?: ModelBulletinPostConditionInput | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type BulletinPost = {
+  __typename: "BulletinPost",
+  id?: string,
+  author?: string | null,
+  subject?: string | null,
+  description?: string | null,
+  resolved?: boolean | null,
+  hashtags?: Array< string | null > | null,
+  posttime?: string | null,
+  createdAt?: string,
+  updatedAt?: string,
+};
+
+export type UpdateBulletinPostInput = {
+  id: string,
+  author?: string | null,
+  subject?: string | null,
+  description?: string | null,
+  resolved?: boolean | null,
+  hashtags?: Array< string | null > | null,
+  posttime?: string | null,
+};
+
+export type DeleteBulletinPostInput = {
+  id: string,
+};
+
 export type ModelMessageFilterInput = {
   id?: ModelIDInput | null,
   owner?: ModelStringInput | null,
@@ -103,6 +276,61 @@ export type ModelIDInput = {
 export type ModelMessageConnection = {
   __typename: "ModelMessageConnection",
   items?:  Array<Message | null > | null,
+  nextToken?: string | null,
+};
+
+export type ModelProfileFilterInput = {
+  id?: ModelIDInput | null,
+  userName?: ModelStringInput | null,
+  userBio?: ModelStringInput | null,
+  firstName?: ModelStringInput | null,
+  lastName?: ModelStringInput | null,
+  city?: ModelStringInput | null,
+  skillLevel?: ModelStringInput | null,
+  role?: ModelStringInput | null,
+  openTo?: ModelStringInput | null,
+  skill1?: ModelStringInput | null,
+  skill2?: ModelStringInput | null,
+  skill3?: ModelStringInput | null,
+  about?: ModelStringInput | null,
+  highlightLink1?: ModelStringInput | null,
+  highlightLink2?: ModelStringInput | null,
+  highlightTitle1?: ModelStringInput | null,
+  highlightTitle2?: ModelStringInput | null,
+  highlightLink3?: ModelStringInput | null,
+  highlightTitle3?: ModelStringInput | null,
+  highlightLink4?: ModelStringInput | null,
+  highlightTitle4?: ModelStringInput | null,
+  ghLink?: ModelStringInput | null,
+  liLink?: ModelStringInput | null,
+  twLink?: ModelStringInput | null,
+  and?: Array< ModelProfileFilterInput | null > | null,
+  or?: Array< ModelProfileFilterInput | null > | null,
+  not?: ModelProfileFilterInput | null,
+};
+
+export type ModelProfileConnection = {
+  __typename: "ModelProfileConnection",
+  items?:  Array<Profile | null > | null,
+  nextToken?: string | null,
+};
+
+export type ModelBulletinPostFilterInput = {
+  id?: ModelIDInput | null,
+  author?: ModelStringInput | null,
+  subject?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  resolved?: ModelBooleanInput | null,
+  hashtags?: ModelStringInput | null,
+  posttime?: ModelStringInput | null,
+  and?: Array< ModelBulletinPostFilterInput | null > | null,
+  or?: Array< ModelBulletinPostFilterInput | null > | null,
+  not?: ModelBulletinPostFilterInput | null,
+};
+
+export type ModelBulletinPostConnection = {
+  __typename: "ModelBulletinPostConnection",
+  items?:  Array<BulletinPost | null > | null,
   nextToken?: string | null,
 };
 
@@ -154,6 +382,177 @@ export type DeleteMessageMutation = {
   } | null,
 };
 
+export type CreateProfileMutationVariables = {
+  input?: CreateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type CreateProfileMutation = {
+  createProfile?:  {
+    __typename: "Profile",
+    id: string,
+    userName: string,
+    userBio?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
+    city?: string | null,
+    skillLevel?: string | null,
+    role?: string | null,
+    openTo?: string | null,
+    skill1?: string | null,
+    skill2?: string | null,
+    skill3?: string | null,
+    about?: string | null,
+    highlightLink1?: string | null,
+    highlightLink2?: string | null,
+    highlightTitle1?: string | null,
+    highlightTitle2?: string | null,
+    highlightLink3?: string | null,
+    highlightTitle3?: string | null,
+    highlightLink4?: string | null,
+    highlightTitle4?: string | null,
+    ghLink?: string | null,
+    liLink?: string | null,
+    twLink?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateProfileMutationVariables = {
+  input?: UpdateProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type UpdateProfileMutation = {
+  updateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    userName: string,
+    userBio?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
+    city?: string | null,
+    skillLevel?: string | null,
+    role?: string | null,
+    openTo?: string | null,
+    skill1?: string | null,
+    skill2?: string | null,
+    skill3?: string | null,
+    about?: string | null,
+    highlightLink1?: string | null,
+    highlightLink2?: string | null,
+    highlightTitle1?: string | null,
+    highlightTitle2?: string | null,
+    highlightLink3?: string | null,
+    highlightTitle3?: string | null,
+    highlightLink4?: string | null,
+    highlightTitle4?: string | null,
+    ghLink?: string | null,
+    liLink?: string | null,
+    twLink?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteProfileMutationVariables = {
+  input?: DeleteProfileInput,
+  condition?: ModelProfileConditionInput | null,
+};
+
+export type DeleteProfileMutation = {
+  deleteProfile?:  {
+    __typename: "Profile",
+    id: string,
+    userName: string,
+    userBio?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
+    city?: string | null,
+    skillLevel?: string | null,
+    role?: string | null,
+    openTo?: string | null,
+    skill1?: string | null,
+    skill2?: string | null,
+    skill3?: string | null,
+    about?: string | null,
+    highlightLink1?: string | null,
+    highlightLink2?: string | null,
+    highlightTitle1?: string | null,
+    highlightTitle2?: string | null,
+    highlightLink3?: string | null,
+    highlightTitle3?: string | null,
+    highlightLink4?: string | null,
+    highlightTitle4?: string | null,
+    ghLink?: string | null,
+    liLink?: string | null,
+    twLink?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type CreateBulletinPostMutationVariables = {
+  input?: CreateBulletinPostInput,
+  condition?: ModelBulletinPostConditionInput | null,
+};
+
+export type CreateBulletinPostMutation = {
+  createBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateBulletinPostMutationVariables = {
+  input?: UpdateBulletinPostInput,
+  condition?: ModelBulletinPostConditionInput | null,
+};
+
+export type UpdateBulletinPostMutation = {
+  updateBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteBulletinPostMutationVariables = {
+  input?: DeleteBulletinPostInput,
+  condition?: ModelBulletinPostConditionInput | null,
+};
+
+export type DeleteBulletinPostMutation = {
+  deleteBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
 export type GetMessageQueryVariables = {
   id?: string,
 };
@@ -190,6 +589,128 @@ export type ListMessagesQuery = {
   } | null,
 };
 
+export type GetProfileQueryVariables = {
+  id?: string,
+};
+
+export type GetProfileQuery = {
+  getProfile?:  {
+    __typename: "Profile",
+    id: string,
+    userName: string,
+    userBio?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
+    city?: string | null,
+    skillLevel?: string | null,
+    role?: string | null,
+    openTo?: string | null,
+    skill1?: string | null,
+    skill2?: string | null,
+    skill3?: string | null,
+    about?: string | null,
+    highlightLink1?: string | null,
+    highlightLink2?: string | null,
+    highlightTitle1?: string | null,
+    highlightTitle2?: string | null,
+    highlightLink3?: string | null,
+    highlightTitle3?: string | null,
+    highlightLink4?: string | null,
+    highlightTitle4?: string | null,
+    ghLink?: string | null,
+    liLink?: string | null,
+    twLink?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListProfilesQueryVariables = {
+  filter?: ModelProfileFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListProfilesQuery = {
+  listProfiles?:  {
+    __typename: "ModelProfileConnection",
+    items?:  Array< {
+      __typename: "Profile",
+      id: string,
+      userName: string,
+      userBio?: string | null,
+      firstName?: string | null,
+      lastName?: string | null,
+      city?: string | null,
+      skillLevel?: string | null,
+      role?: string | null,
+      openTo?: string | null,
+      skill1?: string | null,
+      skill2?: string | null,
+      skill3?: string | null,
+      about?: string | null,
+      highlightLink1?: string | null,
+      highlightLink2?: string | null,
+      highlightTitle1?: string | null,
+      highlightTitle2?: string | null,
+      highlightLink3?: string | null,
+      highlightTitle3?: string | null,
+      highlightLink4?: string | null,
+      highlightTitle4?: string | null,
+      ghLink?: string | null,
+      liLink?: string | null,
+      twLink?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type GetBulletinPostQueryVariables = {
+  id?: string,
+};
+
+export type GetBulletinPostQuery = {
+  getBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListBulletinPostsQueryVariables = {
+  filter?: ModelBulletinPostFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListBulletinPostsQuery = {
+  listBulletinPosts?:  {
+    __typename: "ModelBulletinPostConnection",
+    items?:  Array< {
+      __typename: "BulletinPost",
+      id: string,
+      author?: string | null,
+      subject?: string | null,
+      description?: string | null,
+      resolved?: boolean | null,
+      hashtags?: Array< string | null > | null,
+      posttime?: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type OnCreateMessageSubscription = {
   onCreateMessage?:  {
     __typename: "Message",
@@ -218,6 +739,147 @@ export type OnDeleteMessageSubscription = {
     id: string,
     owner: string,
     message?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateProfileSubscription = {
+  onCreateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    userName: string,
+    userBio?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
+    city?: string | null,
+    skillLevel?: string | null,
+    role?: string | null,
+    openTo?: string | null,
+    skill1?: string | null,
+    skill2?: string | null,
+    skill3?: string | null,
+    about?: string | null,
+    highlightLink1?: string | null,
+    highlightLink2?: string | null,
+    highlightTitle1?: string | null,
+    highlightTitle2?: string | null,
+    highlightLink3?: string | null,
+    highlightTitle3?: string | null,
+    highlightLink4?: string | null,
+    highlightTitle4?: string | null,
+    ghLink?: string | null,
+    liLink?: string | null,
+    twLink?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateProfileSubscription = {
+  onUpdateProfile?:  {
+    __typename: "Profile",
+    id: string,
+    userName: string,
+    userBio?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
+    city?: string | null,
+    skillLevel?: string | null,
+    role?: string | null,
+    openTo?: string | null,
+    skill1?: string | null,
+    skill2?: string | null,
+    skill3?: string | null,
+    about?: string | null,
+    highlightLink1?: string | null,
+    highlightLink2?: string | null,
+    highlightTitle1?: string | null,
+    highlightTitle2?: string | null,
+    highlightLink3?: string | null,
+    highlightTitle3?: string | null,
+    highlightLink4?: string | null,
+    highlightTitle4?: string | null,
+    ghLink?: string | null,
+    liLink?: string | null,
+    twLink?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteProfileSubscription = {
+  onDeleteProfile?:  {
+    __typename: "Profile",
+    id: string,
+    userName: string,
+    userBio?: string | null,
+    firstName?: string | null,
+    lastName?: string | null,
+    city?: string | null,
+    skillLevel?: string | null,
+    role?: string | null,
+    openTo?: string | null,
+    skill1?: string | null,
+    skill2?: string | null,
+    skill3?: string | null,
+    about?: string | null,
+    highlightLink1?: string | null,
+    highlightLink2?: string | null,
+    highlightTitle1?: string | null,
+    highlightTitle2?: string | null,
+    highlightLink3?: string | null,
+    highlightTitle3?: string | null,
+    highlightLink4?: string | null,
+    highlightTitle4?: string | null,
+    ghLink?: string | null,
+    liLink?: string | null,
+    twLink?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnCreateBulletinPostSubscription = {
+  onCreateBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateBulletinPostSubscription = {
+  onUpdateBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteBulletinPostSubscription = {
+  onDeleteBulletinPost?:  {
+    __typename: "BulletinPost",
+    id: string,
+    author?: string | null,
+    subject?: string | null,
+    description?: string | null,
+    resolved?: boolean | null,
+    hashtags?: Array< string | null > | null,
+    posttime?: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
