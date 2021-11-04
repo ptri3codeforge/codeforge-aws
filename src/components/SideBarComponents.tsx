@@ -27,13 +27,13 @@ const SideBarComponents = () => {
             <li>
               <a
                 href="#"
-                onClick={() => setView('dashboard')}
+                onClick={() => setView('home')}
                 className="flex flex-row items-center h-12 transform hover:translate-x-2 transition-transform ease-in duration-200 text-darkBlue-default hover:text-yellow-default"
               >
                 <span className="inline-flex items-center justify-center h-12 w-12 text-lg text-gray-400">
                   <BiHome />
                 </span>
-                <span className="text-sm font-medium">Dashboard</span>
+                <span className="text-sm font-medium">Home</span>
               </a>
             </li>
             <li>
