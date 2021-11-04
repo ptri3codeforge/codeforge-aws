@@ -30,3 +30,13 @@ type Profile @model {
   liLink: String
   twLink: String
 }
+
+type BulletinPost @model {
+  id: ID!
+  author: String
+  subject: String
+  description: String
+  resolved: Boolean
+  hashtags: [String]
+  posttime: AWSDate
+}

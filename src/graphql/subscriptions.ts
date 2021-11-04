@@ -131,3 +131,48 @@ export const onDeleteProfile = /* GraphQL */ `
     }
   }
 `;
+export const onCreateBulletinPost = /* GraphQL */ `
+  subscription OnCreateBulletinPost {
+    onCreateBulletinPost {
+      id
+      author
+      subject
+      description
+      resolved
+      hashtags
+      posttime
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateBulletinPost = /* GraphQL */ `
+  subscription OnUpdateBulletinPost {
+    onUpdateBulletinPost {
+      id
+      author
+      subject
+      description
+      resolved
+      hashtags
+      posttime
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteBulletinPost = /* GraphQL */ `
+  subscription OnDeleteBulletinPost {
+    onDeleteBulletinPost {
+      id
+      author
+      subject
+      description
+      resolved
+      hashtags
+      posttime
+      createdAt
+      updatedAt
+    }
+  }
+`;
